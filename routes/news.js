@@ -87,11 +87,12 @@ router.get("/scrape", (req, res) => {
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/articles/:id", (req, res) => {
     db.Article.findOne({ _id: req.params.id })
-    // ..and populate all of the notes associated with it
+    // Populate all of the notes associated with it
         .populate("comment")
-        .then((dbArticle) => {
+        .then((article) => {
+            console.log("LINE 93ish", article);
             // If successful send it back to the client
-            res.json(dbArticle);
+            res.render('expand', article);
         })
         .catch((err) => {
             // If an error occurred, send it to the client
@@ -101,13 +102,15 @@ router.get("/articles/:id", (req, res) => {
 
 // Route for saving/updating an Article's associated Comments
 router.post("/articles/:id", (req, res) => {
+    console.log(req.body);
     db.Comment.create(req.body)
         .then((dbComment) => {
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbComment._id }, { new: true });
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
         })
         .then((dbArticle) => {
             // If successful update an Article, send it back to the client
-            res.json(dbArticle);
+            console.log(dbArticle);
+            //res.json(dbArticle);
         })
         .catch((err) => {
             // If an error occurred, send it to the client
