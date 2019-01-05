@@ -2,7 +2,7 @@
 const express = require('express');
 const axios = require('axios');
 // Import models
-const db = require('../models/index');
+const db = require('../models/Index');
 const mongoose = require('mongoose');
 const cheerio = require('cheerio');
 const router = express.Router();
