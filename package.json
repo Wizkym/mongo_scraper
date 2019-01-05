@@ -2,6 +2,10 @@
   "name": "mongo_scraper",
   "version": "1.0.0",
   "description": "Scrapes news and lets users leave comments",
+  "engines": {
+    "node": "11.6.0",
+    "npm":"6.5.0"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
