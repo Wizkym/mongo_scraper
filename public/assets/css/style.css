@@ -1,0 +1,27 @@
+html body {
+}
+
+.center {
+    text-align: center;
+}
+
+nav ul a,
+nav .brand-logo {
+    padding-left: 150px;
+    padding-right: 150px;
+    color: #fff;
+    font-family: 'Pacifico', cursive;
+}
+
+p {
+    line-height: 2rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    display: table;
+    margin: 0 auto;
+}
+

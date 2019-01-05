@@ -2,9 +2,11 @@
   "name": "mongo_scraper",
   "version": "1.0.0",
   "description": "Scrapes news and lets users leave comments",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,15 @@
   "homepage": "https://github.com/Wizkym/mongo_scraper#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
-    "mongoose": "^5.4.2"
+    "mongoose": "^5.4.2",
+    "nodemon": "^1.18.9",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1"
   }
 }
