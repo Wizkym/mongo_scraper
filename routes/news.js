@@ -10,7 +10,13 @@ const router = express.Router();
 // Connect to the Mongo DB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+    .then(() => {
+        console.log("DATABASE CONNECTED");
+    })
+    .catch((error) => {
+        console.log("DATABASE NOT FOUND", error);
+    });
 
 router.get("/", (req,res) => {
     res.redirect("/scrape");
