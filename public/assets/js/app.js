@@ -21,11 +21,15 @@ $(document).on('click', '#note-btn', function () {
     })
     .then((data) => {
         const commentsCard = $("#comments-div");
-        let newComment = `<div class="col s12">
+        let newComment =
+            `<div class="col s12">
                 <div class="card horizontal">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <button id="comment-btn" data-value=${ data._id } class="btn-small halfway-fab waves-effect waves-light red right"><i class="material-icons">delete</i></button>
+                            <button id="comment-btn" data-value=${ data._id } 
+                            class="btn-small halfway-fab waves-effect waves-light red right">
+                            <i class="material-icons">delete</i>
+                            </button>
                             <h6>${data.title}</h6>
                             <p><i>${data.body}</i></p>
                         </div>
