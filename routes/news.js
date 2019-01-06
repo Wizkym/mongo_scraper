@@ -51,7 +51,6 @@ router.get("/scrape", (req, res) => {
             result.summary = $(element).find(".multi-summary-body p").text();
             result.link = $(element).find(".multi-summary-source a").attr("href");
             result.imgLink = $(element).find(".multi-summary-image a img").attr("src");
-            console.log("RESULT: ", result);
 
             // Create a new Article using the `result` object built from scraping
             db.Article.findOne({ title: result.title })
@@ -89,31 +88,43 @@ router.get("/scrape", (req, res) => {
 
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/articles/:id", (req, res) => {
-    db.Article.findOne({ _id: req.params.id })
-    // Populate all of the notes associated with it
-        .populate("comment")
-        .then((article) => {
-            console.log("LINE 93ish", article);
-            // If successful send it back to the client
-            res.render('expand', article);
-        })
-        .catch((err) => {
-            // If an error occurred, send it to the client
-            res.json(err);
-        });
+    let result = {};
+     const myPromise = () => {
+         return new Promise((resolve, reject) => {
+             db.Article.findOne({ _id: req.params.id })
+                 .then( (article) => {
+                     result.article = article;
+                     resolve();
+                 })
+                 .catch( (err) => {
+                     res.json(err);
+                     reject();
+                 });
+
+         });
+     };
+     myPromise().then(response => {
+         // Get comments
+         db.Comment.find({ article: req.params.id })
+             .then((comment) => {
+                 // Load article and send result
+                 result.comment = comment;
+                 res.render('expand', result);
+             })
+             .catch((err) => {
+                 // If an error occurred, send it to the client
+                 console.log(err);
+             });
+     });
+
 });
 
 // Route for saving/updating an Article's associated Comments
-router.post("/articles/:id", (req, res) => {
-    console.log(req.body);
+router.post("/comments/:id", (req, res) => {
     db.Comment.create(req.body)
         .then((dbComment) => {
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
-        })
-        .then((dbArticle) => {
-            // If successful update an Article, send it back to the client
-            console.log(dbArticle);
-            //res.json(dbArticle);
+            console.log("NEW COMMENT", dbComment);
+            res.send(dbComment);
         })
         .catch((err) => {
             // If an error occurred, send it to the client

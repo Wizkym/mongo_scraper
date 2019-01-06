@@ -18,10 +18,6 @@ const ArticleSchema = new Schema({
     imgLink: {
         type: String,
         required: false
-    },
-    comment: {
-        type: Schema.Types.ObjectId,
-        ref: "Comment"
     }
 });
 
