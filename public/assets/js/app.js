@@ -24,8 +24,8 @@ $(document).on('click', '#note-btn', function () {
                 <div class="card horizontal">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <h5>${data.title}</h5>
-                            <p>${data.body}</p>
+                            <h6>${data.title}</h6>
+                            <p><i>${data.body}</i></p>
                         </div>
                     </div>
                 </div>
