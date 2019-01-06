@@ -132,4 +132,15 @@ router.post("/comments/:id", (req, res) => {
         });
 });
 
+// Route for deleting comments
+router.delete("/comments/:id", (req,res) => {
+    db.Comment.findByIdAndRemove(req.params.id)
+        .then((deleted) => {
+            res.send(deleted);
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+});
+
 module.exports = router;
